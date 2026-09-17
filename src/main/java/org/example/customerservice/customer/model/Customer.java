@@ -6,68 +6,37 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(
-        name = "customer"
-)
+@Table(name = "customer")
 public class Customer {
     @Id
-    @Column(
-            name = "id",
-            unique = true
-    )
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(
-            message = "You must enter a firstname."
-    )
+    @NotBlank(message = "You must enter a firstname.")
     private String firstname;
 
-    @NotBlank(
-            message = "You must enter a lastname."
-    )
+    @NotBlank(message = "You must enter a lastname.")
     private String lastname;
 
-    @Column(
-            name = "identification_number",
-            unique = true
-    )
-    @NotBlank(
-            message = "You must enter an identification number."
-    )
+    @Column(name = "identification_number", unique = true)
+    @NotBlank(message = "You must enter an identification number.")
     private String identificationNumber;
 
-    @Column(
-            name = "email",
-            unique = true
-    )
-    @NotBlank(
-            message = "You must enter a email."
-    )
-    @Email(
-            message = "Email format is invalid."
-    )
+    @Column(name = "email", unique = true)
+    @NotBlank(message = "You must enter a email.")
+    @Email(message = "Email format is invalid.")
     private String email;
 
-    @NotBlank(
-            message = "You must enter a password."
-    )
+    @NotBlank(message = "You must enter a password.")
     private String password;
 
-    @Column(
-            name = "phone_number",
-            unique = true
-    )
-    @Pattern(
-            regexp = "^(?:\\+46\\s?7\\d-\\d{7}|07\\d-\\d{7}|\\+46\\d{1,3}-\\d{5,8}|0\\d{1,3}-\\d{5,8})$",
-            message = "Phone number to be in phone or mobile format, for example xxx-xxxxxxx."
-    )
+    @Column(name = "phone_number", unique = true)
+    @Pattern(regexp = "^(?:\\+46\\s?7\\d-\\d{7}|07\\d-\\d{7}|\\+46\\d{1,3}-\\d{5,8}|0\\d{1,3}-\\d{5,8})$",
+            message = "Phone number to be in phone or mobile format, for example xxx-xxxxxxx.")
     private String phoneNumber;
 
-    public Customer() {
-    }
+    public Customer() {}
 
     public Customer(
             String firstname,
