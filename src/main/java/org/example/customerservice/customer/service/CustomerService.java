@@ -86,36 +86,8 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long id, String token) {
+    public void deleteCustomer(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("id not found"));
-
-        Boolean hasActiveReservations = null;
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", formatBearerToken(token));
-            
-            HttpEntity<String> entity = new HttpEntity<>(headers);
-            
-            hasActiveReservations = template.exchange(
-                    "http://booking-service:8082/api/reservation/has-active-booking",
-                    HttpMethod.GET,
-                    entity,
-                    Boolean.class
-            ).getBody();
-            
-        } catch (RestClientException e) {
-            throw new BadRequestException("Could not connect to Reservation service");
-        } catch (Exception e) {
-            throw new BadRequestException("Error checking reservation status: " + e.getMessage());
-        }
-
-        if (hasActiveReservations == null) {
-            throw new BadRequestException("Could not get status from reservation service");
-        }
-
-        if (hasActiveReservations) {
-            throw new HaveReservationException("You can't delete your account while having active bookings");
-        }
         customerRepository.delete(customer);
     }
 
