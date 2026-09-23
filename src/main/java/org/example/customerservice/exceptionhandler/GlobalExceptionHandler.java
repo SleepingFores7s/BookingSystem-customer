@@ -30,10 +30,8 @@ public class GlobalExceptionHandler {
 
         exception.getBindingResult().
                 getFieldErrors()
-                .forEach(
-                        error -> errors.put(
-                                error.getField(),
-                                error.getDefaultMessage()
+                .forEach(error -> errors.put(
+                        error.getField(), error.getDefaultMessage()
                         )
                 );
 
@@ -45,31 +43,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AlreadyExistException.class)
     public ResponseEntity<String> handleUsernameExists(AlreadyExistException e) {
         return ResponseEntity
-                .status(
-                        HttpStatus.CONFLICT
-                ).body(
-                        e.getMessage()
-                );
+                .status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
     }
 
     @ExceptionHandler(WrongEmailOrPasswordException.class)
     public ResponseEntity<String> handleWrongEmailOrPassword(WrongEmailOrPasswordException e) {
         return ResponseEntity
-                .status(
-                        HttpStatus.CONFLICT
-                ).body(
-                        e.getMessage()
-                );
+                .status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
     }
 
     @ExceptionHandler(HaveReservationException.class)
     public ResponseEntity<String> HaveReservation(HaveReservationException e) {
         return ResponseEntity
-                .status(
-                        HttpStatus.CONFLICT
-                ).body(
-                        e.getMessage()
-                );
+                .status(HttpStatus.CONFLICT).
+                body(e.getMessage());
     }
 
 
@@ -78,11 +67,8 @@ public class GlobalExceptionHandler {
             IllegalArgumentException e) {
 
         return ResponseEntity
-                .status(
-                        HttpStatus.BAD_REQUEST
-                ).body(
-                        e.getMessage()
-                );
+                .status(HttpStatus.BAD_REQUEST)
+                .body(e.getMessage());
     }
 
 }
