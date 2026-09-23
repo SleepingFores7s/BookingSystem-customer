@@ -34,11 +34,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/Customer-service #URL to the created MySQL database schema.
+          SPRING_DATASOURCE_URL: ${{ secrets.CUSTOMER_DB_TEST_URL }} #URL to the created MySQL database schema.
           SPRING_DATASOURCE_USERNAME: ${{ secrets.CUSTOMER_DB_USER }} #Username for the database, needs to be the name as the databases chosen user
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.CUSTOMER_DB_PASS }}
 
