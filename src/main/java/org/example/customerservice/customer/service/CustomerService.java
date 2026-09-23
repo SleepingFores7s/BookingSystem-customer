@@ -4,16 +4,10 @@ import org.example.customerservice.customer.model.Customer;
 import org.example.customerservice.customer.model.dto.*;
 import org.example.customerservice.customer.repository.CustomerRepository;
 import org.example.customerservice.exceptionhandler.customexeptions.AlreadyExistException;
-import org.example.customerservice.exceptionhandler.customexeptions.BadRequestException;
-import org.example.customerservice.exceptionhandler.customexeptions.HaveReservationException;
 import org.example.customerservice.exceptionhandler.customexeptions.NotFoundException;
 import org.example.customerservice.security.password.PasswordService;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -27,7 +21,7 @@ public class CustomerService {
         this.passwordService = passwordService;
     }
 
-    public CreateCustomerResponse createNewCustomer(CreateCustomerRequest request) {
+    public void createNewCustomer(CreateCustomerRequest request) {
 
         if (customerRepository.existsByEmail(request.email())) {
             throw new AlreadyExistException("Email already exist");
@@ -48,8 +42,6 @@ public class CustomerService {
                 request.phoneNumber()
         );
         customerRepository.save(customer);
-
-        return new CreateCustomerResponse("account successfully created", true);
     }
 
     @Transactional

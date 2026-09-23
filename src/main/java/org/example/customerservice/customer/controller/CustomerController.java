@@ -36,8 +36,8 @@ public class CustomerController {
             return (ResponseEntity.badRequest().body(errors));
         }
 
-
-        return (ResponseEntity.status(HttpStatus.CREATED).body(customerService.createNewCustomer(customer)));
+        customerService.createNewCustomer(customer);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/does-customer-exist")
